@@ -31,14 +31,14 @@ namespace GLTech2.PostProcessing
         private PixelBuffer temporaryBuffer;
         private int sqrThreshold;
 
-        internal override void Process(PixelBuffer target)
+        public override void Process(PixelBuffer target)
         {
             if (target.width != temporaryBuffer.width || target.height != temporaryBuffer.height)
                 return;
 
             if (!ShowEdges)
             {
-                temporaryBuffer.Copy(target);
+                temporaryBuffer.Clone(target);
                 Parallel.For(1, target.height, (i) =>
                 {
                     for (int j = 1; j < target.width; j++)
@@ -90,7 +90,7 @@ namespace GLTech2.PostProcessing
                 });
             }
 
-            target.Copy(temporaryBuffer);
+            target.Clone(temporaryBuffer);
             return;
 
 
